@@ -24,30 +24,16 @@ public class DoorBehavior : MonoBehaviour
 
     public void CloseGate()
     {
-        Debug.Log("CloseGate");
-        //Without Coroutines
-        //transform.Translate(movementAxis * distance * -1f, Space.World);
-
-        //Basic Coroutine in Frames
-        //StartCoroutine(DoorMove(openPos, closedPos, 1 / frames)); //door glitches out
-
         //Fix door jump glitch by stopping already running coroutines and startin from current position
         StopAllCoroutines(); //add to stop previously running coroutines
-        StartCoroutine(DoorMove(transform.position, closedPos, 1 / frames)); //What's the bug here, can you solve it?
+        StartCoroutine(DoorMove(transform.position, closedPos, 1f / (frames == 0 ? 1 : frames)));
     }
 
     public void OpenGate()
     {
-        Debug.Log("OpenGate");
-        //Without Coroutines
-        //transform.Translate(movementAxis * distance, Space.World);
-
-        //Basic Coroutine in Frames
-        //StartCoroutine(DoorMove(closedPos, openPos, 1 / frames)); //door glitches out
-
         //Fix door jump glitch by stopping already running coroutines and startin from current position
         StopAllCoroutines();
-        StartCoroutine(DoorMove(transform.position, openPos, 1 / frames)); //What's the bug here, can you solve it?
+        StartCoroutine(DoorMove(transform.position, openPos, 1f / (frames == 0 ? 1 : frames)));
     }
 
     IEnumerator DoorMove(Vector3 startPos, Vector3 endPos, float step)
@@ -56,6 +42,8 @@ public class DoorBehavior : MonoBehaviour
         {
             Vector3 newPos = Vector3.Lerp(startPos, endPos, i);
             transform.position = newPos;
+
+            //makes the corouting pause until the next frame
             yield return null;
         }
     }
