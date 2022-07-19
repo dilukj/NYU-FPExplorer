@@ -24,6 +24,7 @@ public class DoorBehavior : MonoBehaviour
 
     public void CloseGate()
     {
+        Debug.Log("CloseGate");
         //Without Coroutines
         //transform.Translate(movementAxis * distance * -1f, Space.World);
 
@@ -37,6 +38,7 @@ public class DoorBehavior : MonoBehaviour
 
     public void OpenGate()
     {
+        Debug.Log("OpenGate");
         //Without Coroutines
         //transform.Translate(movementAxis * distance, Space.World);
 
